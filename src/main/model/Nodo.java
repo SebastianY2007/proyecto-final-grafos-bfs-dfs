@@ -13,7 +13,7 @@ public class Nodo {
         this.id = id;
         this.x = x;
         this.y = y;
-        this.vecinos = new ArrayList<>();
+        this.vecinos = new ArrayList<>()    ;
     }
 
     public String getId() {
