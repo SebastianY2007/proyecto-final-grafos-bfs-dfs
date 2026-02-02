@@ -5,34 +5,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Grafo {
-    private Map<String, Nodo> nodos;
 
-    public Grafo() {
-        nodos = new HashMap<>();
+    // Estructura principal del grafo:
+    // guarda cada nodo usando su ID como clave
+    private Map<String, Nodo> nodos = new HashMap<>();
+
+    /**
+     * Agrega un nodo al grafo.
+     * El ID del nodo se usa como clave en el mapa.
+     */
+    public void agregarNodo(Nodo n) {
+        nodos.put(n.getId(), n);
     }
 
-    // Método para agregar un nodo al grafo
-    public void agregarNodo(Nodo nodo) {
-        nodos.put(nodo.getId(), nodo);
-    }
-
-    // Método para obtener un nodo por su ID
+    /**
+     * Devuelve un nodo a partir de su ID.
+     * Se usa cuando se quiere acceder a un nodo específico.
+     */
     public Nodo getNodo(String id) {
         return nodos.get(id);
     }
 
-    // Conectar dos nodos del grafo de manera bidireccional
-    public void conectar(String id1, String id2) {
-        Nodo n1 = nodos.get(id1);
-        Nodo n2 = nodos.get(id2);
+    /**
+     * Conecta dos nodos del grafo usando sus IDs.
+     * La conexión es bidireccional (grafo no dirigido),
+     * es decir, ambos nodos se agregan como vecinos.
+     */
+    public void conectar(String idA, String idB) {
+        Nodo a = nodos.get(idA);
+        Nodo b = nodos.get(idB);
 
-        if (n1 != null && n2 != null) {
-            n1.agregarVecino(n2);
-            n2.agregarVecino(n1);
+        // Validación: si alguno no existe, se muestra error
+        if (a == null || b == null) {
+            System.out.println("Error: nodo no encontrado (" + idA + ", " + idB + ")");
+            return;
         }
+
+        // Conexión en ambos sentidos
+        a.agregarVecino(b);
+        b.agregarVecino(a);
     }
 
-    // Devuelve todos los nodos que contiene el grafo
+    /**
+     * Devuelve todos los nodos del grafo.
+     * Se usa para recorrerlos o dibujarlos.
+     */
     public Collection<Nodo> getNodos() {
         return nodos.values();
     }
